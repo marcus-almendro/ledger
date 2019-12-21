@@ -10,6 +10,11 @@ cp services/target/scala-2.12/services_2.12-0.1.jar account/lib
 cp services/target/scala-2.12/services_2.12-0.1.jar account-sync/lib
 cp services/target/scala-2.12/services_2.12-0.1.jar transfer/lib
 
+cd api/src/protobuf/
+chmod +x gen.sh
+./gen.sh
+cd ../../..
+
 cd account
 sbt docker:publishLocal
 cd ..
