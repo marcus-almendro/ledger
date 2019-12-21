@@ -2,7 +2,7 @@
 This project is an implementation of a general ledger showing how CQRS and Actor Model works.
 
 ### Architecture
-![Architecture](link-to-image)
+![Architecture](https://github.com/marcus-almendro/ledger/blob/master/docs/architecture.png)
 
 ### Components used
 * Akka (Cluster Sharding, Streams)
