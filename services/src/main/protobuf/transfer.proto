@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "dev.almendro.ledger.services";
+option java_outer_classname = "TransferProto";
+
+package transfer;
+
+service TransferService {
+    rpc ask (TransferMessage) returns (TransferMessage) {}
+}
+
+message TransferMessage {
+    string correlationId                                                                = 1;
+    oneof msgType {
+        //commands
+        Transfer transfer                                                               = 20;
+
+        //events
+        TransferExecuted transferExecuted                                               = 40;
+
+        //command reply
+        TransferFailedDueToWithdrawAccount transferFailedDueToWithdrawAccount           = 60;
+        TransferFailedDueToDepositAccount transferFailedDueToDepositAccount             = 61;
+        TransferFailedAndCannotRollback transferFailedAndCannotRollback                 = 62;
+        InvalidOperation invalidOperation                                               = 63;
+    }
+}
+
+message Transfer { int32 fromAccountId = 1; int32 toAccountId = 2; string amount = 3; }
+message TransferExecuted { int64 timestamp = 1; }
+message TransferFailedDueToWithdrawAccount { }
+message TransferFailedDueToDepositAccount { }
+message TransferFailedAndCannotRollback { }
+message InvalidOperation { string reason = 1; }

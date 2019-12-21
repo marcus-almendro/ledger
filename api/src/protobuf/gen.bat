@@ -1,0 +1,2 @@
+start grpc_tools_node_protoc --js_out=import_style=commonjs,binary:. --grpc_out=. --plugin=protoc-gen-grpc=C:\Users\marcus\AppData\Roaming\npm\node_modules\grpc-tools\bin\grpc_node_plugin.exe account.proto
+start grpc_tools_node_protoc --js_out=import_style=commonjs,binary:. --grpc_out=. --plugin=protoc-gen-grpc=C:\Users\marcus\AppData\Roaming\npm\node_modules\grpc-tools\bin\grpc_node_plugin.exe transfer.proto

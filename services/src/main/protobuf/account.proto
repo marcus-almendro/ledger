@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "dev.almendro.ledger.services";
+option java_outer_classname = "AccountProto";
+
+package account;
+
+service AccountService {
+    rpc ask (AccountMessage) returns (AccountMessage) {}
+}
+
+message AccountMessage {
+    int32 accountId                                 = 1;
+    string correlationId                            = 2;
+    oneof msgType {
+        //commands
+        OpenAccount openAccount                     = 20;
+        CloseAccount closeAccount                   = 21;
+        BlockAccount blockAccount                   = 22;
+        UnblockAccount unblockAccount               = 23;
+        Withdraw withdraw                           = 24;
+        Deposit deposit                             = 25;
+        CancelWithdraw cancelWithdraw               = 26;
+
+        //events
+        AccountOpened accountOpened                 = 40;
+        AccountClosed accountClosed                 = 41;
+        AccountBlocked accountBlocked               = 42;
+        AccountUnblocked accountUnblocked           = 43;
+        Withdrawn withdrawn                         = 44;
+        Deposited deposited                         = 45;
+        WithdrawCancelled withdrawCancelled         = 46;
+
+        //command reply
+        InvalidOperation invalidOperation           = 60;
+        InsufficientFunds insufficientFunds         = 61;
+    }
+}
+
+message OpenAccount { string initialAmount = 1; }
+message CloseAccount { }
+message BlockAccount { }
+message UnblockAccount { }
+message Withdraw { string amount = 1; }
+message Deposit { string amount = 1; }
+message CancelWithdraw { Withdraw withdrawCmd = 1; }
+message AccountOpened { string initialAmount = 1; int64 timestamp = 2; }
+message AccountClosed { int64 timestamp = 1; }
+message AccountBlocked { int64 timestamp = 1; }
+message AccountUnblocked { int64 timestamp = 1; }
+message Withdrawn { string seqNumber = 1; string amount = 2; string currentBalance = 3; int64 timestamp = 4; }
+message Deposited { string seqNumber = 1; string amount = 2; string currentBalance = 3; int64 timestamp = 4; }
+message WithdrawCancelled { string seqNumber = 1; string amount = 2; string currentBalance = 3; int64 timestamp = 4; }
+message InvalidOperation { string reason = 1; }
+message InsufficientFunds { }
